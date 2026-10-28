@@ -1,0 +1,50 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#2f6bff"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon-192.png"><title>Fichador</title>
+<style>:root{--bg:#f4f6fb;--c:#fff;--t:#1b2333;--m:#6b7488;--p:#2f6bff;--ok:#18a864;--ob:#e3f6ec;--l:#e3e7f0;box-sizing:border-box;padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
+@media(prefers-color-scheme:dark){:root{--bg:#0f1420;--c:#1a2130;--t:#eef1f8;--m:#939bb0;--p:#6b94ff;--ok:#3ddc8a;--ob:#17382a;--l:#29324a}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;background:var(--bg);color:var(--t);font-family:system-ui,sans-serif}
+main{max-width:480px;margin:0 auto;padding:14px}button{font:inherit;color:inherit}
+.s{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:8px;margin-bottom:12px}.s div{background:var(--c);border:1px solid var(--l);border-radius:16px;padding:10px 12px;font-size:12px;color:var(--m)}.s b{display:block;font-size:28px;color:var(--t)}.s .g{background:var(--p);border:0;color:#e6edff}.s .g b{font-size:38px;color:#fff}
+.k{background:var(--c);border:1px solid var(--l);border-radius:20px;padding:14px;margin-bottom:12px}
+.n{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}.n h2{margin:0;font-size:18px;text-align:center;text-transform:capitalize}.n button{width:44px;height:44px;border-radius:12px;border:1px solid var(--l);background:var(--bg);font-size:20px}
+.r{display:flex;align-items:center;width:100%;padding:14px;margin-bottom:8px;border-radius:16px;border:2px solid var(--l);background:var(--bg);font-size:22px;font-weight:600}.r i{margin-left:auto;width:40px;height:40px;border-radius:12px;border:3px solid var(--m);display:flex;align-items:center;justify-content:center;font-style:normal;font-size:26px;color:#fff}.r.on{background:var(--ob);border-color:var(--ok)}.r.on i{background:var(--ok);border-color:var(--ok)}
+.e{font-size:12px;color:var(--m);margin:10px 2px 6px;text-transform:uppercase}.a{width:100%;padding:14px;border:0;border-radius:14px;background:var(--p);color:#fff;font-weight:600;font-size:16px}.f{text-align:center;color:var(--m);padding:20px 0}.h{border:0!important;background:none!important;color:var(--p)!important;width:auto!important;height:auto!important;font-size:14px!important;font-weight:600}
+.g7{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}.dn{font-size:11px;color:var(--m);text-align:center}
+.d{aspect-ratio:1;border-radius:12px;border:2px solid transparent;background:0;color:var(--m);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0;font-size:15px}.d.w{background:var(--bg);color:var(--t);font-weight:600}.d.u{background:var(--ob);color:var(--ok)}.d small{font-size:10px}.d.h0{border-color:var(--p)}.d.x{background:var(--p);color:#fff}</style></head>
+<body><main><div class="s"><div class="g"><b id="T">0</b>horas totales</div><div><b id="M">0</b>este mes</div><div><b id="W">0</b>esta semana</div></div><div class="k" id="D"></div><div class="k"><div class="n"><button id="P">‹</button><h2 id="N"></h2><button id="S">›</button></div><div class="g7" id="C"></div></div></main>
+<script>
+var Q=["17:00","18:00","19:00","20:00","21:00"],A=["09:00","10:00","11:00"].concat(Q),H=[[],A,["09:30","11:00"].concat(Q),A,["11:00"].concat(Q),A,[]],
+DN=["Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"],
+$=function(i){return document.getElementById(i)},D={};
+try{D=JSON.parse(localStorage.f||"{}")}catch(e){}
+function sv(){try{localStorage.f=JSON.stringify(D)}catch(e){}}
+function di(d){return Math.floor(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate())/864e5)}
+function pc(n){for(var c=0;n;n&=n-1)c++;return c}
+function wk(i){return i-(i+3)%7}
+var t0=new Date;t0.setHours(0,0,0,0);var ti=di(t0),sel=new Date(t0),vw=new Date(t0.getFullYear(),t0.getMonth(),1);
+function all(){var t=0,m=0,w=0,u=new Date(ti*864e5),k;
+for(k in D){var n=pc(D[k]),x=new Date(k*864e5);t+=n;
+if(x.getUTCFullYear()==u.getUTCFullYear()&&x.getUTCMonth()==u.getUTCMonth())m+=n;if(wk(+k)==wk(ti))w+=n}
+T.textContent=t;M.textContent=m;W.textContent=w;
+var s=H[sel.getDay()],i=di(sel),k2=D[i]|0,h='<div class="n"><button id="p">‹</button><div style="text-align:center"><h2>'+DN[sel.getDay()]+' '+sel.getDate()+'</h2>'+(i==ti?'':'<button class="h" id="g">Ir a hoy</button>')+'</div><button id="q">›</button></div>';
+if(!s.length)h+='<div class="f">No hay clases 🎉</div>';else{
+s.forEach(function(x,j){if(j==0||x=="17:00")h+='<div class="e">'+(x<"17"?"Mañana":"Tarde")+'</div>';
+var o=k2>>j&1;h+='<button class="r'+(o?' on':'')+'" data-j="'+j+'">'+x+'<i>'+(o?'✓':'')+'</i></button>'});
+h+='<button class="a" id="a">'+(pc(k2)==s.length?'Desmarcar todas':'Marcar todas')+'</button>'}
+D$.innerHTML=h;
+var y=vw.getFullYear(),mo=vw.getMonth();N.textContent=vw.toLocaleDateString("es-ES",{month:"long",year:"numeric"});
+h="LMXJVSD".split("").map(function(c){return'<div class="dn">'+c+'</div>'}).join("")+"<div></div>".repeat((new Date(y,mo,1).getDay()+6)%7);
+for(var d=1,e=new Date(y,mo+1,0).getDate();d<=e;d++){var z=new Date(y,mo,d),l=H[z.getDay()].length,c=pc(D[di(z)]|0),b=di(z);
+h+='<button class="d'+(l?' w':'')+(l&&c==l?' u':'')+(b==ti?' h0':'')+(b==i?' x':'')+'" data-d="'+b+'">'+d+(l?'<small>'+c+'/'+l+'</small>':'')+'</button>'}
+C.innerHTML=h}
+var D$=$("D"),T=$("T"),M=$("M"),W=$("W"),N=$("N"),C=$("C");
+function go(d){sel=d;vw=new Date(d.getFullYear(),d.getMonth(),1);all()}
+function mv(n){var d=new Date(sel);d.setDate(d.getDate()+n);go(d)}
+D$.onclick=function(e){var b=e.target.closest("button");if(!b)return;var i=di(sel),s=H[sel.getDay()],v=D[i]|0;
+if(b.dataset.j){v^=1<<b.dataset.j}else if(b.id=="a"){v=pc(v)==s.length?0:(1<<s.length)-1}
+else{b.id=="p"?mv(-1):b.id=="q"?mv(1):go(new Date(t0));return}
+v?D[i]=v:delete D[i];sv();all()};
+C.onclick=function(e){var b=e.target.closest("[data-d]");if(b)go(new Date(new Date(b.dataset.d*864e5).getUTCFullYear(),new Date(b.dataset.d*864e5).getUTCMonth(),new Date(b.dataset.d*864e5).getUTCDate()))};
+$("P").onclick=function(){vw=new Date(vw.getFullYear(),vw.getMonth()-1,1);all()};
+$("S").onclick=function(){vw=new Date(vw.getFullYear(),vw.getMonth()+1,1);all()};
+all();if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js");
+</script></body></html>
